@@ -47,7 +47,7 @@
       </v-list>
     </v-navigation-drawer>
     <v-toolbar fixed>
-      <v-toolbar-side-icon @click="toggleDrawer"></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click.stop="toggleDrawer"></v-toolbar-side-icon>
       <div v-if="drawer">
         <v-btn icon @click.native.stop="miniVariant = !miniVariant">
           <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
