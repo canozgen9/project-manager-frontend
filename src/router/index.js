@@ -62,7 +62,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   if (localStorage.getItem('token')) {
     axios
-      .post('http://localhost:3000/check?token=' + localStorage.getItem('token'), {}, {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'})
+      .post('http://' + store.state.api + ':3000/check?token=' + localStorage.getItem('token'), {}, {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'})
       .then((res) => {
         if (res.data.success) {
           store.dispatch('setAuthenticatedUser', res.data.user)

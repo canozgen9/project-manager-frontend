@@ -44,7 +44,7 @@
     methods: {
       onSignup () {
         axios
-          .post('http://localhost:3000/signup', {username: this.username, email: this.email, password: this.password}, {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'})
+          .post('http://' + this.$store.state.api + ':3000/signup', {username: this.username, email: this.email, password: this.password}, {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'})
           .then((res) => {
             console.log(res)
             toastr.success('Please sign in.', 'Your account created')
