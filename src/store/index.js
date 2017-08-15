@@ -174,7 +174,7 @@ export const store = new Vuex.Store({
     joinRooms ({commit}) {
       commit('joinRooms')
     },
-    getProjectMessages ({commit}, data) {
+    getProjectMessages ({commit, state}, data) {
       return new Promise((resolve, reject) => {
         axios.post('http://' + state.api + ':3000/api/messages?token=' + localStorage.getItem('token'), {room: data.room}, {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'})
           .then((response) => {
