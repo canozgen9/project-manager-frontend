@@ -8,7 +8,7 @@ import toastr from 'toastr'
 
 export const store = new Vuex.Store({
   state: {
-    api: 'http://23.251.128.252',
+    api: '23.251.128.252',
     authenticatedUser: null,
     socket: null,
     projectRooms: [
