@@ -47,7 +47,7 @@
       </v-list>
     </v-navigation-drawer>
     <v-toolbar fixed>
-      <v-toolbar-side-icon @click.native.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click="toggleDrawer"></v-toolbar-side-icon>
       <div v-if="drawer">
         <v-btn icon @click.native.stop="miniVariant = !miniVariant">
           <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
@@ -197,6 +197,10 @@
         this.$store.dispatch('openSocket')
         this.$store.dispatch('getClient')
         this.$store.dispatch('joinRooms')
+      },
+      toggleDrawer () {
+        this.drawer = !this.drawer
+        console.log(this.drawer)
       }
     },
     computed: {
