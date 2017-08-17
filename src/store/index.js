@@ -8,8 +8,8 @@ import toastr from 'toastr'
 
 export const store = new Vuex.Store({
   state: {
-    api: '23.251.128.252',
-    // api: 'localhost',
+    // api: '23.251.128.252',
+    api: 'localhost',
     authenticatedUser: null,
     socket: null,
     projectRooms: [
@@ -156,6 +156,7 @@ export const store = new Vuex.Store({
     },
     getClient (state) {
       if (state.authenticatedUser) {
+        console.log(state.authenticatedUser)
         state.socket.emit('getClient', state.authenticatedUser)
       }
     },

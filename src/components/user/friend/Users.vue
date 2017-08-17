@@ -6,14 +6,18 @@
           <v-flex xs12 md6 v-for="(user,i) in users" :key="i" class="mb-2">
             <v-slide-y-transition appear mode="out-in">
             <v-card class="white black--text" height="100%" style="border-radius: 5px">
-              <v-card-media class="grey lighten-2">
-                <v-container>
-                  <v-layout row>
-                    <h5 class="black--text"><b><v-icon large light>person</v-icon> {{ user.username }}</b></h5>
-                  </v-layout>
-                </v-container>
-              </v-card-media>
-            <v-card-text><i>{{ user.email }}</i></v-card-text>
+              <v-list>
+                <v-list-tile avatar tag="div">
+                  <v-list-tile-avatar>
+                    <img :src="avatar(user)" />
+                  </v-list-tile-avatar>
+                  <v-list-tile-content>
+                    <v-list-tile-title class="grey--text text--darken-3"><b>{{ user.name }}</b></v-list-tile-title>
+                    <small class="grey--text text--darken-3"><i>@{{user.username}}</i></small>
+                  </v-list-tile-content>
+                </v-list-tile>
+              </v-list>
+              <!--<v-card-text><i>{{ user.email }}</i></v-card-text>-->
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn v-if="sentIntivation(user)" disabled class="grey lighten-2 black--text" light>Sent Intivation</v-btn>
@@ -59,6 +63,12 @@
           }
         }
         return false
+      },
+      avatar: function (user) {
+        if (user.avatar) {
+          return user.avatar
+        }
+        return '/static/friend.png'
       }
     },
     computed: {

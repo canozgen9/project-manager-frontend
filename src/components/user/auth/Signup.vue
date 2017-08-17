@@ -2,16 +2,35 @@
   <v-card>
     <blockquote>
       <h3 class="white--text"><v-icon x-large>person_add</v-icon> Sign up</h3>
-        <v-container fluid grid-list-xs>
-          <v-layout row wrap>
-            <v-flex xs12>
-              <img class="image" :src="imageSrc" alt="lorem" width="100%" height="100%">
-            </v-flex>
+        <v-container fluid>
+          <v-layout row wrap v-if="!uploading" align-center justify-center>
+            <img class="image mb-2" :src="imageSrc" alt="lorem" width="90%" height="90%">
+              <v-btn @click="openFileChooser" flat>Choose Avatar</v-btn>
+            <div class="upload-btn-wrapper">
+              <input ref="avatarUpload" @change="uploadImage" type="file" name="myfile" accept="image/*">
+            </div>
           </v-layout>
-            <input @change="uploadImage" type="file" name="photo" accept="image/*">
+          <v-layout v-else align-center justify-center class="mt-2">
+            <v-progress-circular
+              v-bind:size="200"
+              v-bind:width="15"
+              v-bind:rotate="360"
+              v-bind:value="uploadingProcess"
+              class="primary--text"
+            >
+              {{ uploadingProcess }}
+            </v-progress-circular>
+          </v-layout>
+          <v-layout row wrap>
+          </v-layout>
         </v-container>
       <v-container fluid mt-1>
         <form @submit.prevent="onSignup">
+          <v-layout row>
+            <v-flex xs12 md10 offset-md1>
+              <v-text-field v-model="name" name="input-1" label="Full Name" dark></v-text-field>
+            </v-flex>
+          </v-layout>
           <v-layout row>
             <v-flex xs12 md10 offset-md1>
               <v-text-field v-model="username" name="input-1" label="Username" dark></v-text-field>
@@ -29,7 +48,7 @@
           </v-layout>
           <v-layout row>
             <v-spacer></v-spacer>
-            <v-btn type="submit" flat>Sign up</v-btn>
+            <v-btn :disabled="uploading" type="submit" flat>Sign up</v-btn>
           </v-layout>
         </form>
       </v-container>
@@ -44,22 +63,30 @@
   export default {
     data () {
       return {
+        name: '',
         username: '',
         email: '',
         password: '',
-        imageSrc: '/static/friend.png'
+        imageSrc: '/static/friend.png',
+        uploading: false,
+        uploadingProcess: 0
       }
     },
     methods: {
+      openFileChooser () {
+        this.$refs['avatarUpload'].click()
+      },
       onSignup () {
         axios
-          .post('http://' + this.$store.state.api + ':3000/user/new', {username: this.username, email: this.email, password: this.password}, {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'})
+          .post('http://' + this.$store.state.api + ':3000/user/new', {username: this.username, email: this.email, password: this.password, avatar: this.imageSrc, name: this.name}, {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'})
           .then((res) => {
             console.log(res)
             toastr.success('Please sign in.', 'Your account created')
             this.username = ''
             this.email = ''
             this.password = ''
+            this.name = ''
+            this.imageSrc = '/static/friend.png'
             this.$router.push('/signin')
           })
           .catch((err) => {
@@ -68,29 +95,27 @@
           })
       },
       uploadImage: function (e) {
+        this.uploading = true
         var files = e.target.files
         if (!files[0]) {
           return
         }
         var data = new FormData()
         data.append('image', files[0])
-//        var reader = new FileReader()
-//        reader.onload = (e) => {
-//          this.imageSrc = e.target.result
-//          console.log(e.target.result)
-//        }
+        var _this = this
         var config = {
           'Access-Control-Allow-Origin': '*',
           onUploadProgress: progressEvent => {
             let percentCompleted = Math.floor((progressEvent.loaded * 100) / progressEvent.total)
-            console.log(percentCompleted)
+            _this.uploadingProcess = percentCompleted
           }
         }
-        var _this = this
         axios.post('http://' + this.$store.state.api + ':3000/uploads', data, config)
           .then(function (response) {
             if (response.data.success) {
               _this.imageSrc = 'http://' + _this.$store.state.api + ':3000' + response.data.filepath
+              _this.uploading = false
+              _this.uploadingProcess = 0
             } else {
               console.log('server error')
               console.log(response.data.message)
@@ -105,5 +130,18 @@
 </script>
 
 <style scoped>
+  .upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    cursor: pointer;
+  }
 
+  .upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
 </style>

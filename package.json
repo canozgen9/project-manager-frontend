@@ -12,10 +12,12 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "cropper": "^3.0.0-rc.3",
     "jquery": "^3.2.1",
     "socket.io-client": "^2.0.3",
     "toastr": "^2.1.2",
     "vue": "^2.4.2",
+    "vue-crop": "^1.0.1",
     "vue-router": "^2.3.1",
     "vue-socket.io": "^2.1.1",
     "vuetify": "^0.14.7",

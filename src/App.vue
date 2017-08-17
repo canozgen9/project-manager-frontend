@@ -1,7 +1,18 @@
 <template>
   <v-app dark>
     <v-navigation-drawer persistent :mini-variant="miniVariant" :clipped="clipped" v-model="drawer" enable-resize-watcher>
+      <v-list v-if="this.$store.getters.getAuthenticatedUser">
+        <v-list-tile avatar tag="div">
+          <v-list-tile-avatar>
+            <img :src="avatar" />
+          </v-list-tile-avatar>
+          <v-list-tile-content>
+            <v-list-tile-title>{{ name }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
       <v-list dense>
+        <v-divider></v-divider>
         <template v-for="(item, i) in navItems">
           <v-layout row v-if="item.heading" :to="item.link" align-center :key="i">
             <v-flex xs12>
@@ -104,6 +115,7 @@
   export default {
     data () {
       return {
+        testMsg: '',
         notificationsLength: 0,
         clipped: true,
         drawer: true,
@@ -178,7 +190,7 @@
 
         if (data.type === 0) {
           // success
-          toastr.success('<v-layout><v-card class="primary"><v-card-title></v-card-title>' + data.message + '</v-card></v-layout>')
+          toastr.success(data.message)
           this.notificationsLength++
         } else if (data.type === 1) {
           // info
@@ -204,6 +216,15 @@
       }
     },
     computed: {
+      name () {
+        return this.$store.getters.getAuthenticatedUser.name
+      },
+      avatar () {
+        if (this.$store.getters.getAuthenticatedUser.avatar) {
+          return this.$store.getters.getAuthenticatedUser.avatar
+        }
+        return '/static/friend.png'
+      },
       socket () {
         return this.$store.getters.getSocket
       },

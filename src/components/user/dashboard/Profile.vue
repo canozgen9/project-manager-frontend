@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-layout row wrap align-start>
-      <span><h4><v-icon x-large>account_box</v-icon><b> Profile | </b><i><small>{{ this.$store.getters.getAuthenticatedUser.username }}</small></i></h4></span>
+      <span><h4><v-icon x-large>account_box</v-icon><b> Profile | </b><i><small>@{{ this.$store.getters.getAuthenticatedUser.username }}</small></i></h4></span>
       <v-flex xs12 md12 xl8>
         <v-card>
           <v-card-text>

@@ -5,20 +5,24 @@
       <v-layout wrap>
           <v-flex xs12 md6 v-for="(friend,i) in friends" :key="i" class="mb-2">
               <v-slide-y-transition appear mode="out-in">
-              <v-card class="blue darken-3 white--text" style="border-radius: 5px">
-                <v-card-media src="/static/friend.png">
-                  <v-container style="background-color: rgba(0,0,0,0.5); border-radius: 5px">
-                    <v-layout row>
-                      <h5 class="white--text"><b><v-icon large>person</v-icon> {{ friend.username }}</b></h5>
-                    </v-layout>
-                  </v-container>
-                </v-card-media>
-                <v-card-text><i>{{ friend.email }}</i></v-card-text>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn class="blue" :to="'/user/'+friend._id">See Profile</v-btn>
-                </v-card-actions>
-              </v-card>
+                <v-card class="grey lighten-4 grey--text text--darken-3" style="border-radius: 5px">
+                  <v-list>
+                    <v-list-tile avatar tag="div">
+                      <v-list-tile-avatar>
+                        <img :src="avatar(friend)" />
+                      </v-list-tile-avatar>
+                      <v-list-tile-content>
+                        <v-list-tile-title class="grey--text text--darken-3"><b>{{ friend.name }}</b></v-list-tile-title>
+                        <small class="grey--text text--darken-3"><i>@{{friend.username}}</i></small>
+                      </v-list-tile-content>
+                    </v-list-tile>
+                  </v-list>
+                  <!--<v-card-text><i>{{ friend.email }}</i></v-card-text>-->
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn class="grey lighten-4" flat light :to="'/user/'+friend._id">Profile</v-btn>
+                  </v-card-actions>
+                </v-card>
               </v-slide-y-transition>
           </v-flex>
       </v-layout>
@@ -44,7 +48,12 @@
       this.$store.dispatch('getFriends')
     },
     methods: {
-
+      avatar: function (user) {
+        if (user.avatar) {
+          return user.avatar
+        }
+        return '/static/friend.png'
+      }
     },
     computed: {
       authenticedUser () {
