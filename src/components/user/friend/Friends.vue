@@ -6,13 +6,13 @@
           <v-flex xs12 md6 v-for="(friend,i) in friends" :key="i" class="mb-2">
               <v-slide-y-transition appear mode="out-in">
                 <v-card class="grey lighten-4 grey--text text--darken-3" style="border-radius: 5px">
-                  <v-list>
-                    <v-list-tile avatar tag="div">
-                      <v-list-tile-avatar>
+                  <v-list light>
+                    <v-list-tile avatar tag="div" light>
+                      <v-list-tile-avatar light>
                         <img :src="avatar(friend)" />
                       </v-list-tile-avatar>
-                      <v-list-tile-content>
-                        <v-list-tile-title class="grey--text text--darken-3"><b>{{ friend.name }}</b></v-list-tile-title>
+                      <v-list-tile-content light>
+                        <v-list-tile-title light class="grey--text text--darken-3"><b>{{ friend.name }}</b></v-list-tile-title>
                         <small class="grey--text text--darken-3"><i>@{{friend.username}}</i></small>
                       </v-list-tile-content>
                     </v-list-tile>
