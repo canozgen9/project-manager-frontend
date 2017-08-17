@@ -1,15 +1,9 @@
 <template>
   <div>
     <v-layout row wrap align-start>
-      <v-flex xs12 md12 xl8>
-        <v-card class="mb-2">
-          <blockquote>
-            <span><h4><b><v-icon x-large>code</v-icon> Project | </b><i><small>{{ project.room }}</small></i></h4></span>
-          </blockquote>
-        </v-card>
-      </v-flex>
+      <span><h4><b><v-icon x-large>code</v-icon> Project | </b><i><small>{{ project.room }}</small></i></h4></span>
     </v-layout>
-      <v-layout row wrap align-start>
+    <v-layout row wrap align-start>
       <v-flex xs12 md6 xl4>
         <v-card class="mb-2">
           <v-card-title>Project Proporties</v-card-title>

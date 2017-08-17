@@ -1,14 +1,14 @@
 <template>
-  <v-card>
+  <v-card class="mb-2">
     <v-card-title><h5><v-icon large>supervisor_account</v-icon> Intivations</h5></v-card-title>
     <v-card-text>
       <v-layout align-center justify-center v-if="loading">
         <v-progress-circular indeterminate v-bind:size="60" class="primary--text"></v-progress-circular>
       </v-layout>
-      <v-layout wrap v-else>
+      <v-layout wrap v-else v-if="intivations.length > 0">
           <v-flex xs12 md6 v-for="(user,i) in intivations" :key="i" class="mb-2" v-if="!user.dismissedIntivation">
             <v-slide-y-transition appear mode="out-in">
-              <v-card class="white black--text">
+              <v-card class="white black--text" style="border-radius: 5px">
                 <v-card-media class="grey lighten-2">
                   <v-container>
                     <v-layout row>
@@ -31,14 +31,10 @@
             </v-slide-y-transition>
           </v-flex>
       </v-layout>
+      <div v-else>
+        You have no intivation.
+      </div>
     </v-card-text>
-    <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn class="red" flat dark>
-        <v-icon>search</v-icon>
-        Find Your Friends
-      </v-btn>
-    </v-card-actions>
   </v-card>
 </template>
 

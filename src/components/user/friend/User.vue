@@ -1,13 +1,7 @@
 <template>
   <div>
     <v-layout row wrap align-start>
-      <v-flex xs12 md12 xl8>
-        <v-card class="mb-2">
-          <blockquote>
-            <span><h4><v-icon x-large>account_box</v-icon><b> Profile | </b><i><small>{{ user.username }}</small></i></h4></span>
-          </blockquote>
-        </v-card>
-      </v-flex>
+      <span><h4><v-icon x-large>account_box</v-icon><b> Profile | </b><i><small>{{ user.username }}</small></i></h4></span>
       <v-flex xs12 md12 xl8>
         <v-card>
           <v-card-text>

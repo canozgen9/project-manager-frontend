@@ -64,9 +64,9 @@
         <v-btn v-if="!isConnected" @click="reconnect">Reconnect</v-btn>
         <div v-else></div>
         <v-btn flat router to="/notifications">
+          <span v-if="notificationsLength > 0" style="position: absolute; bottom: 12px; left: 30px; padding-right:5px; padding-left:5px; background-color: red; border-radius: 5px" class="primary--text">{{ notificationsLength }}</span>
           <v-icon dark left>notifications</v-icon>
-          <v-chip v-if="notificationsLength !== 0" class="red white--text">{{ notificationsLength }}</v-chip>
-          Notifications
+          <span>Notifications</span>
         </v-btn>
         <v-btn flat v-for="(item,i) in toolbarItems" :key="i" :to="item.link">
           <v-icon dark left>{{item.icon}}</v-icon>
@@ -81,7 +81,7 @@
         </v-slide-y-transition>
       </v-container>
     </main>
-    <v-footer fixed>
+    <v-footer>
       <v-spacer></v-spacer>
       <span>&copy; 2017 - Project Manager - All Rights Reserved.</span>
     </v-footer>
@@ -178,7 +178,7 @@
 
         if (data.type === 0) {
           // success
-          toastr.success(data.message)
+          toastr.success('<v-layout><v-card class="primary"><v-card-title></v-card-title>' + data.message + '</v-card></v-layout>')
           this.notificationsLength++
         } else if (data.type === 1) {
           // info

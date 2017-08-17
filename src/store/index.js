@@ -8,7 +8,8 @@ import toastr from 'toastr'
 
 export const store = new Vuex.Store({
   state: {
-    api: '23.251.128.252',
+    // api: '23.251.128.252',
+    api: 'localhost',
     authenticatedUser: null,
     socket: null,
     projectRooms: [
@@ -54,7 +55,7 @@ export const store = new Vuex.Store({
       state.authenticatedUser.client = client
     },
     getFriends (state) {
-      axios.get('http://' + state.api + ':3000/api/friends?token=' + localStorage.getItem('token'), {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'})
+      axios.get('http://' + state.api + ':3000/api/user/friends?token=' + localStorage.getItem('token'), {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'})
         .then((response) => {
           if (response.data.success) {
             state.friends = response.data.friends
@@ -67,7 +68,7 @@ export const store = new Vuex.Store({
         })
     },
     addFriend (state, candicateFriendId) {
-      axios.post('http://' + state.api + ':3000/api/sendintivation?token=' + localStorage.getItem('token'), {friend_id: candicateFriendId}, {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'})
+      axios.post('http://' + state.api + ':3000/api/user/intivations/send?token=' + localStorage.getItem('token'), {friend_id: candicateFriendId}, {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'})
         .then((response) => {
           if (response.data.success) {
             for (var i = 0; i < state.users.length; i++) {
@@ -87,7 +88,7 @@ export const store = new Vuex.Store({
         })
     },
     getIntivations (state) {
-      axios.get('http://' + state.api + ':3000/api/intivations?token=' + localStorage.getItem('token'), {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'})
+      axios.get('http://' + state.api + ':3000/api/user/intivations/all?token=' + localStorage.getItem('token'), {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'})
         .then((response) => {
           if (response.data.success) {
             state.intivations = response.data.intivations
@@ -100,7 +101,7 @@ export const store = new Vuex.Store({
         })
     },
     acceptIntivation (state, candicateUserId) {
-      axios.post('http://' + state.api + ':3000/api/acceptintivation?token=' + localStorage.getItem('token'), {candicateUserId: candicateUserId}, {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'})
+      axios.post('http://' + state.api + ':3000/api/user/intivations/accept?token=' + localStorage.getItem('token'), {candicateUserId: candicateUserId}, {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'})
         .then((response) => {
           if (response.data.success) {
             for (var i = 0; i < state.intivations.length; i++) {
@@ -176,7 +177,7 @@ export const store = new Vuex.Store({
     },
     getProjectMessages ({commit, state}, data) {
       return new Promise((resolve, reject) => {
-        axios.post('http://' + state.api + ':3000/api/messages?token=' + localStorage.getItem('token'), {room: data.room}, {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'})
+        axios.post('http://' + state.api + ':3000/api/project/team/messages?token=' + localStorage.getItem('token'), {room: data.room}, {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'})
           .then((response) => {
             if (response.data.success) {
               resolve(response.data.messages)

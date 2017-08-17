@@ -54,15 +54,23 @@ const router = new Router({
       name: 'user',
       component: User
     },
-    { path: '/profile', name: 'profile', component: Profile },
-    { path: '/notifications', name: 'notifications', component: Notifications }
+    {
+      path: '/profile',
+      name: 'profile',
+      component: Profile
+    },
+    {
+      path: '/notifications',
+      name: 'notifications',
+      component: Notifications
+    }
   ]
 })
 
 router.beforeEach((to, from, next) => {
   if (localStorage.getItem('token')) {
     axios
-      .post('http://' + store.state.api + ':3000/check?token=' + localStorage.getItem('token'), {}, {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'})
+      .post('http://' + store.state.api + ':3000/user/check?token=' + localStorage.getItem('token'), {}, {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'})
       .then((res) => {
         if (res.data.success) {
           store.dispatch('setAuthenticatedUser', res.data.user)

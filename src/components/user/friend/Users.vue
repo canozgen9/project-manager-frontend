@@ -1,11 +1,11 @@
 <template>
-  <v-card>
+  <v-card tile>
     <v-card-title><h5><v-icon large>call_made</v-icon> Other Users</h5></v-card-title>
     <v-card-text>
       <v-layout wrap chid-flex>
           <v-flex xs12 md6 v-for="(user,i) in users" :key="i" class="mb-2">
             <v-slide-y-transition appear mode="out-in">
-            <v-card class="white black--text" height="100%">
+            <v-card class="white black--text" height="100%" style="border-radius: 5px">
               <v-card-media class="grey lighten-2">
                 <v-container>
                   <v-layout row>

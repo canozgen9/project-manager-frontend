@@ -2,14 +2,32 @@
   <div>
     <v-layout row wrap align-start>
       <v-flex xs12 md12 xl8>
-        <v-card class="mb-2">
-          <blockquote>
-            <span><h4><b><v-icon x-large>notifications</v-icon> Notifications | </b><i><small>{{ this.$store.getters.getAuthenticatedUser.username }}</small></i></h4></span>
-          </blockquote>
-        </v-card>
-        <v-slide-y-transition mode="out-in">
-          <app-intivations></app-intivations>
-        </v-slide-y-transition>
+        <v-layout row wrap>
+          <v-flex xs12 md6>
+            <v-card>
+              <v-card-title><h5><v-icon large>notifications</v-icon> Notifications</h5></v-card-title>
+              <v-card-text>
+                <v-alert class="white darken-4 grey--text text--darken-1" style="border-radius: 5px" icon="notifications" v-bind:value="true">
+                  This is a success alert with a custom icon.
+                </v-alert>
+                <v-alert class="white darken-4 grey--text text--darken-1" style="border-radius: 5px" icon="notifications" v-bind:value="true">
+                  This is a success alert with a custom icon.
+                </v-alert>
+                <v-alert class="white darken-4 grey--text text--darken-1" style="border-radius: 5px" icon="notifications" v-bind:value="true">
+                  This is a success alert with a custom icon.
+                </v-alert>
+                <v-alert class="white darken-4 grey--text text--darken-1" style="border-radius: 5px" icon="notifications" v-bind:value="true">
+                  This is a success alert with a custom icon.
+                </v-alert>
+              </v-card-text>
+            </v-card>
+          </v-flex>
+          <v-flex xs12 md6>
+            <v-slide-y-transition mode="out-in">
+              <app-intivations></app-intivations>
+            </v-slide-y-transition>
+          </v-flex>
+        </v-layout>
       </v-flex>
     </v-layout>
   </div>

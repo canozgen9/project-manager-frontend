@@ -38,7 +38,7 @@
     methods: {
       onSignin () {
         axios
-          .post('http://' + this.$store.state.api + ':3000/signin', {username: this.username, password: this.password}, {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'})
+          .post('http://' + this.$store.state.api + ':3000/user/authenticate', {username: this.username, password: this.password}, {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'})
           .then((res) => {
             console.log(res)
             if (res.data.success) {
