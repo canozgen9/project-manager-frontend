@@ -6,7 +6,7 @@ import { store } from './store'
 import socketio from 'socket.io-client'
 import VueSocketIO from 'vue-socket.io'
 
-var socket = socketio('http://' + store.state.api + ':4321', {reconnection: true, autoConnect: false})
+var socket = socketio('http://' + store.state.api + ':4321', {reconnection: true, autoConnect: false, secure: true, transports: ['websocket', 'flashsocket', 'htmlfile', 'xhr-polling', 'jsonp-polling', 'polling']})
 Vue.use(VueSocketIO, socket)
 
 store.state.socket = socket

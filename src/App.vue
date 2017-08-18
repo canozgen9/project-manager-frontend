@@ -12,7 +12,6 @@
         </v-list-tile>
       </v-list>
       <v-list dense>
-        <v-divider></v-divider>
         <template v-for="(item, i) in navItems">
           <v-layout row v-if="item.heading" :to="item.link" align-center :key="i">
             <v-flex xs12>
@@ -72,10 +71,10 @@
       <v-toolbar-items v-if="authenticatedUser" class="hidden-xs-only">
         <v-btn disabled v-if="isConnected" flat class="green--text">Online</v-btn>
         <v-btn disabled v-else flat>Offline</v-btn>
-        <v-btn v-if="!isConnected" @click="reconnect">Reconnect</v-btn>
+        <v-btn v-if="!isConnected" flat @click="reconnect">Reconnect</v-btn>
         <div v-else></div>
         <v-btn flat router to="/notifications">
-          <span v-if="notificationsLength > 0" style="position: absolute; bottom: 12px; left: 30px; padding-right:5px; padding-left:5px; background-color: red; border-radius: 5px" class="primary--text">{{ notificationsLength }}</span>
+          <span v-if="notificationsLength > 0" style="position: absolute; bottom: 12px; left: 30px; padding-right:5px; padding-left:5px; background-color: red; border-radius: 5px" class="white--text">{{ notificationsLength }}</span>
           <v-icon dark left>notifications</v-icon>
           <span>Notifications</span>
         </v-btn>
@@ -120,31 +119,6 @@
         clipped: true,
         drawer: true,
         fixed: false,
-        authenticatedNavItems: [
-          { heading: 'General' },
-          { icon: 'home', text: 'Dashboard', link: '/dashboard' },
-          { divider: true },
-          { heading: 'Project Management' },
-          {
-            icon: 'settings_ethernet',
-            'icon-alt': 'code',
-            text: 'Projects',
-            model: false,
-            children: [
-              { text: 'Project 1', link: '/project/1' },
-              { text: 'Project 2', link: '/project/2' },
-              { text: 'Project 3', link: '/project/3' },
-              { text: 'Project 4', link: '/project/4' },
-              { text: 'Project 5', link: '/project/5' }
-            ]
-          },
-          { icon: 'group_work', text: 'Teams', link: '/teams' },
-          { icon: 'settings', text: 'Settings', link: '/settings' },
-          { divider: true },
-          { icon: 'account_box', text: 'Profile', link: '/profile' },
-          { icon: 'group', text: 'Friends', link: '/firends' },
-          { icon: 'power_settings_new', text: 'Logout', link: '/logout' }
-        ],
         authenticatedToolbarItems: [
           { icon: 'help_outline', text: 'Help', link: '/help' },
           { icon: 'power_settings_new', text: 'Logout', link: '/logout' }
@@ -187,6 +161,8 @@
         this.$store.dispatch('getUsers')
         this.$store.dispatch('getFriends')
         this.$store.dispatch('getIntivations')
+        this.$store.dispatch('getTeamIntivations')
+        this.$store.dispatch('getProjects', this.$store.getters.getAuthenticatedUser._id)
 
         if (data.type === 0) {
           // success
@@ -208,7 +184,7 @@
       reconnect () {
         this.$store.dispatch('openSocket')
         this.$store.dispatch('getClient')
-        this.$store.dispatch('joinRooms')
+        this.$store.dispatch('joinRooms', this.$store.getters.getProjects)
       },
       toggleDrawer () {
         this.drawer = !this.drawer
@@ -216,6 +192,9 @@
       }
     },
     computed: {
+      authenticatedNavItems () {
+        return this.$store.state.authenticatedNavItems
+      },
       name () {
         return this.$store.getters.getAuthenticatedUser.name
       },

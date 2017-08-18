@@ -1,22 +1,19 @@
 <template>
-  <v-card>
-  <v-container fluid>
-    <v-layout row mb-2>
+  <v-card style="border-left: 5px solid #455a64">
+    <v-card-title>
+      <h5><v-icon large>chat</v-icon> Project Chat</h5>
+      <v-spacer></v-spacer>
       <div v-if="isConnected">
         <v-icon class="green--text">autorenew</v-icon>
         Connected
-        <v-btn flat>Disconnect</v-btn>
       </div>
       <div v-else>
         <v-icon class="grey--text">error</v-icon>
         Offline
-        <v-btn flat>Connect</v-btn>
       </div>
-    </v-layout>
-    <v-layout align-center justify-center v-if="loading" row mb-2>
-      <v-progress-circular indeterminate v-bind:size="60" class="primary--text"></v-progress-circular>
-    </v-layout>
-    <v-layout v-else row mb-2>
+    </v-card-title>
+  <v-container fluid>
+    <v-layout row mb-2>
       <div class="scrollbar" id="style-10">
         <v-container>
           <div v-for="(message,i) in messages" :key="i">
@@ -130,8 +127,7 @@
     data () {
       return {
         messages: [],
-        message: '',
-        loading: true
+        message: ''
       }
     },
     sockets: {
@@ -149,10 +145,10 @@
     },
     watch: {
       '$route.params.id' () {
-        this.loading = true
-        this.$store.dispatch('getProjectMessages', {room: this.room}).then((messages) => {
+        this.$store.dispatch('getProjectMessages', {room: this.$route.params.id}).then((messages) => {
           this.messages = messages
-          this.loading = false
+          console.log(messages)
+          console.log('chat watch')
           this.$nextTick(function () {
             var container = this.$el.querySelector('#style-10')
             container.scrollTop = container.scrollHeight
@@ -161,9 +157,9 @@
       }
     },
     mounted () {
-      this.$store.dispatch('getProjectMessages', {room: this.room}).then((messages) => {
+      this.$store.dispatch('getProjectMessages', {room: this.$route.params.id}).then((messages) => {
         this.messages = messages
-        this.loading = false
+        console.log('chat mounted')
         this.$nextTick(function () {
           var container = this.$el.querySelector('#style-10')
           container.scrollTop = container.scrollHeight

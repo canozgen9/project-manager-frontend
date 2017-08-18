@@ -1,5 +1,5 @@
 <template>
-  <v-card tile>
+  <v-card style="border-left: 5px solid #455a64">
     <v-card-title><h5><v-icon large>supervisor_account</v-icon> Friends</h5></v-card-title>
     <v-card-text>
       <v-layout wrap>

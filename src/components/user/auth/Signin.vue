@@ -48,7 +48,7 @@
               this.$store.dispatch('setAuthenticatedUser', res.data.user)
               this.$store.dispatch('openSocket')
               this.$store.dispatch('getClient')
-              this.$store.dispatch('joinRooms')
+              this.$store.dispatch('joinRooms', null)
               this.$router.push('/dashboard')
             } else {
               toastr.error(res.data.message, 'Login failed')

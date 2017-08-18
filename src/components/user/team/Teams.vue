@@ -1,5 +1,5 @@
 <template>
-  <v-card tile>
+  <v-card style="border-left: 5px solid #455a64" height="100%">
     <v-card-title><h5><v-icon large>group_work</v-icon> Teams</h5></v-card-title>
     <v-card-text>
       You don't have any team.

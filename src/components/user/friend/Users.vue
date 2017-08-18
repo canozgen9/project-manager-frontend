@@ -1,18 +1,18 @@
 <template>
-  <v-card tile>
+  <v-card style="border-left: 5px solid #455a64">
     <v-card-title><h5><v-icon large>call_made</v-icon> Other Users</h5></v-card-title>
     <v-card-text>
       <v-layout wrap chid-flex>
           <v-flex xs12 md6 v-for="(user,i) in users" :key="i" class="mb-2">
             <v-slide-y-transition appear mode="out-in">
             <v-card class="white black--text" height="100%" style="border-radius: 5px">
-              <v-list>
-                <v-list-tile avatar tag="div">
-                  <v-list-tile-avatar>
+              <v-list light>
+                <v-list-tile avatar tag="div" light>
+                  <v-list-tile-avatar light>
                     <img :src="avatar(user)" />
                   </v-list-tile-avatar>
-                  <v-list-tile-content>
-                    <v-list-tile-title class="grey--text text--darken-3"><b>{{ user.name }}</b></v-list-tile-title>
+                  <v-list-tile-content light>
+                    <v-list-tile-title light class="grey--text text--darken-3"><b>{{ user.name }}</b></v-list-tile-title>
                     <small class="grey--text text--darken-3"><i>@{{user.username}}</i></small>
                   </v-list-tile-content>
                 </v-list-tile>

@@ -4,7 +4,7 @@
       <v-flex xs12 md12 xl8>
         <v-layout row wrap>
           <v-flex xs12 md6>
-            <v-card>
+            <v-card style="border-left: 5px solid #455a64" class="mb-2">
               <v-card-title><h5><v-icon large>notifications</v-icon> Notifications</h5></v-card-title>
               <v-card-text>
                 <v-alert class="white darken-4 grey--text text--darken-1" style="border-radius: 5px" icon="notifications" v-bind:value="true">
